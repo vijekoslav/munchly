@@ -161,8 +161,8 @@ export const OTHER_FOODS: readonly Food[] = [
 
   // ── Bakery ──
   {
-    id: 'burek-s-mesom',
-    name: 'Burek s mesom',
+    id: 'burek',
+    name: 'Burek',
     description: 'Flaky, golden and glorious. Best eaten warm, with a yoghurt, at any hour.',
     category: 'bakery',
     hunger: ['snack', 'normal', 'big'],
@@ -176,8 +176,8 @@ export const OTHER_FOODS: readonly Food[] = [
     emoji: '🥧',
   },
   {
-    id: 'burek-sa-sirom',
-    name: 'Burek sa sirom',
+    id: 'sirnica',
+    name: 'Sirnica',
     description: 'Flaky pastry, salty cheese. The best breakfast, lunch or midnight snack.',
     category: 'bakery',
     hunger: ['snack', 'normal', 'big'],
