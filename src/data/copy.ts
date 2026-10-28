@@ -5,7 +5,7 @@ import { pick } from '../lib/random'
 export const LOADING_TITLE = 'One sec, gorgeous...'
 
 export const LOADING_MESSAGES = [
-  'Consulting the food gods...',
+  'Consulting my very hungry brain...',
   'Analyzing your very serious cravings...',
   'Making an executive snack decision...',
   'This is extremely scientific, obviously.',
