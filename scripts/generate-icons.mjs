@@ -1,4 +1,4 @@
-// Renders the PWA / Apple touch icons from an inline SVG. Run: npm run icons
+// Renders the PWA / Apple touch icons: the heart SVG on scripts/icon-background.png. Run: npm run icons
 import { mkdirSync, writeFileSync } from 'node:fs'
 import sharp from 'sharp'
 
@@ -18,9 +18,8 @@ const svg = (scale = 1) => `
       <stop offset="1" stop-color="#ffe4e9"/>
     </linearGradient>
   </defs>
-  <rect width="512" height="512" fill="url(#bg)"/>
   <g transform="translate(256 256) scale(${scale}) translate(-256 -256)">
-    <path d="${heart}" transform="translate(0 10)" fill="#c0476a" opacity=".22"/>
+    <path d="${heart}" transform="translate(0 10)" fill="#000" opacity=".35"/>
     <path d="${heart}" fill="url(#heart)"/>
     <path d="M178 160 C 150 160 134 180 134 204" fill="none" stroke="#fff" stroke-width="14" stroke-linecap="round" opacity=".9"/>
     <g fill="#e0577c">
@@ -40,13 +39,18 @@ const outputs = [
 
 mkdirSync('public/icons', { recursive: true })
 for (const [file, size, scale] of outputs) {
-  await sharp(Buffer.from(svg(scale))).resize(size, size).png().toFile(file)
+  const heart = await sharp(Buffer.from(svg(scale))).resize(size, size).png().toBuffer()
+  await sharp('scripts/icon-background.png')
+    .resize(size, size, { fit: 'cover' })
+    .composite([{ input: heart }])
+    .png()
+    .toFile(file)
   console.log('wrote', file)
 }
 
-// Favicon: rounded-square version of the same art.
+// Favicon: same heart on a flat dark rounded square.
 writeFileSync(
   'public/favicon.svg',
-  svg(1).replace('<rect width="512" height="512" fill="url(#bg)"/>', '<rect width="512" height="512" rx="112" fill="url(#bg)"/>'),
+  svg(1).replace('<g transform', '<rect width="512" height="512" rx="112" fill="#232323"/><g transform'),
 )
 console.log('wrote public/favicon.svg')
